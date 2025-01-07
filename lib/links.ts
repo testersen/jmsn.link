@@ -4,7 +4,7 @@ import { z } from "zod";
 
 await db.atomic()
   .check({ key: ["link_count"], versionstamp: null })
-  .set(["link_count"], 0)
+  .set(["link_count"], new Deno.KvU64(0n))
   .commit();
 
 export const baseRedirectSchema = z.object({

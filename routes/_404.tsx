@@ -1,30 +1,28 @@
 import { Head } from "$fresh/runtime.ts";
 import { PageProps } from "$fresh/server.ts";
+import { getRedirect } from "@/lib/links.ts";
 
-export default function Error404({ url }: PageProps) {
-  const { pathname } = url;
+export default async function Error404(props: PageProps) {
+  const redirect = await getRedirect(new URL(props.url).pathname.slice(1));
+
+  if (redirect) {
+    return (
+      <>
+        <Head>
+          <title>Redirecting {redirect.title}</title>
+          <meta http-equiv="refresh" content={`0;url=${redirect.target}`} />
+        </Head>
+        <p>Redirecting to {redirect.title}</p>
+      </>
+    );
+  }
 
   return (
     <>
       <Head>
         <title>404 - Page not found</title>
       </Head>
-      <div class="px-4 py-8 mx-auto bg-[#86efac]">
-        <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-          <img
-            class="my-6"
-            src="/logo.svg"
-            width="128"
-            height="128"
-            alt="the Fresh logo: a sliced lemon dripping with juice"
-          />
-          <h1 class="text-4xl font-bold">404 - Page not found</h1>
-          <p class="my-4">
-            The page you were looking for doesn't exist.
-          </p>
-          <a href="/" class="underline">Go back home</a>
-        </div>
-      </div>
+      <p>Well this is embarrassing.</p>
     </>
   );
 }

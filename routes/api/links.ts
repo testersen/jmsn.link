@@ -14,6 +14,7 @@ export const handler: Handlers<unknown, StateWithSession> = {
   },
 
   async POST(request, ctx) {
+    const s = ctx.state.session;
     try {
       const payload = await createRedirectSchema
         .safeParseAsync(await request.json());
@@ -23,19 +24,19 @@ export const handler: Handlers<unknown, StateWithSession> = {
           { status: 400 },
         );
       }
-      if (payload.data.type === "vanity" && !ctx.state.session.vanity_url) {
+      if (payload.data.type === "vanity" && !s.vanity_url) {
         return json(
           { error: "vanity urls are not enabled for this account" },
           { status: 403 },
         );
       }
-      if (payload.data.type === "random" && !ctx.state.session.short_url) {
+      if (payload.data.type === "random" && !s.short_url) {
         return json(
           { error: "random urls are not enabled for this account" },
           { status: 403 },
         );
       }
-      const slug = createRedirect(payload.data, ctx.state.session.sub);
+      const slug = await createRedirect(payload.data, s.sub);
       return json({ slug }, { status: 201 });
     } catch (error) {
       console.error(error);

@@ -1,10 +1,3 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
 export function json(data: unknown, init?: ResponseInit): Response {
   const headers = new Headers(init?.headers);
   if (!headers.has("content-type")) {

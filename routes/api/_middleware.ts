@@ -23,6 +23,8 @@ export async function handler(
     });
   }
 
+  context.state.session = sessionDetails;
+
   const response = await context.next();
 
   response.headers.set("X-Session-Expiration", sessionDetails.exp.toString());

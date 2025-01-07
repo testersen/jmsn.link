@@ -141,6 +141,7 @@ export async function getSessionDetails(
       expires: session.exp,
       httpOnly: true,
       sameSite: "Strict",
+      path: "/",
     };
 
     return session;

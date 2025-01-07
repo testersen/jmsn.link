@@ -23,15 +23,6 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Fake env
-        run: |
-          cat <<EOF > .env
-          OAUTH2_AUTHORIZE_URL=none
-          OAUTH2_TOKEN_URL=none
-          OAUTH2_CLIENT_ID=none
-          OAUTH2_CLIENT_SECRET=none
-          EOF
-
       - name: Build step
         run: "deno task build"
 

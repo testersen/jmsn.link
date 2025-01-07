@@ -1,0 +1,16 @@
+*
+!/**/
+!/.vscode/settings.json
+!/.vscode/extensions.json
+!/.vscode/tailwind.json
+
+!/.gitignore
+!/README.md
+!/deno.json
+!/components.json
+
+!/**/*.ts
+!/**/*.tsx
+!/**/*.css
+
+node_modules

@@ -1,6 +1,5 @@
 import { extension } from "@std/media-types";
 import { expires } from "./session.ts";
-import { statSync } from "node:fs";
 
 interface BaseCall {
   method: string;
